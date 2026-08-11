@@ -1,6 +1,6 @@
 # Detection Engineering and Response Lab
 
-A self-built Security Operations Center environment generating live, real-time telemetry rather than pre-recorded log imports. The lab covers a full detection-to-response pipeline including endpoint monitoring, SIEM correlation, threat hunting, SOAR automation, and analyst-facing alert delivery.
+A self built Security Operations Center environment generating live, real time telemetry rather than pre recorded log imports. The lab covers a full detection-to-response pipeline including endpoint monitoring, SIEM correlation, threat hunting, SOAR automation, and analyst facing alert delivery.
 
 ## TL;DR
 
