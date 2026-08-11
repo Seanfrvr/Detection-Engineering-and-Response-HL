@@ -363,8 +363,8 @@ Scenario 3 joined threat hunting, detection engineering, and SOC operations into
 | Technique ID | Technique | Primary Scenario | Evidence Type |
 |---|---|---|---|
 | T1003.001 | OS Credential Dumping: LSASS Memory | Scenario 1 | Attempted Mimikatz credential access |
-| T1546.011 | Application Shimming | Persistence, Privilege Escalation | Wazuh Rule 92058 + `sdbinst.exe` telemetry |
-| T1105 | Ingress Tool Transfer | Command and Control | Wazuh Rule 92205 + PowerShell file-write telemetry |
+| T1546.011 | Application Shimming | Scenario 1 | Wazuh Rule 92058 + `sdbinst.exe` telemetry |
+| T1105 | Ingress Tool Transfer | Scenario 1 | Wazuh Rule 92205 + PowerShell file-write telemetry |
 | T1053.005 | Scheduled Task/Job: Scheduled Task | Scenario 2 | Atomic Red Team + Sysmon `schtasks.exe` telemetry |
 | T1059.003 | Windows Command Shell | Scenario 2 | Wazuh Rule 92052 |
 | T1059.001 | PowerShell | Scenario 3 | Wazuh Rule 92057 + Sysmon process telemetry |
