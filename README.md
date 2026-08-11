@@ -42,7 +42,7 @@ A self-built Security Operations Center environment generating live, real-time t
 | Alert delivery | Slack |
 | Adversary emulation | Mimikatz, Atomic Red Team, controlled PowerShell testing |
 | Virtualization | VirtualBox |
-| Endpoints | Ubuntu, Windows 11 Enterprise LTSC
+| Endpoints | Ubuntu, Windows 11 Enterprise LTSC |
 
 ---
 
@@ -215,7 +215,7 @@ Raw endpoint telemetry can be stronger than the alert label attached to it. Scen
 
 Scenario 3 tested whether the lab could identify PowerShell execution containing a Base64-encoded command, preserve enough telemetry for analyst reconstruction, and complete the response path from endpoint activity through Wazuh and Shuffle into Slack.
 
-A benign PowerShell payload was encoded and executed with `powershell.exe -NoProfile -EncodedCommand`. The endpoint successfully produced Sysmon process-creation telemetry, and Wazuh preserved the full command line. During hunting, Wazuh Rule ID `92057`, Level `3`, identified the PowerShell process and mapped it to MITRE ATT&CK `T1059.001` PowerShell.
+A benign PowerShell payload was encoded and executed with `powershell.exe -NoProfile -EncodedCommand`. The endpoint successfully produced Sysmon process-creation telemetry, and Wazuh preserved the full command line. During hunting, Wazuh Rule ID `92057`, Level `12`, identified the PowerShell process and mapped it to MITRE ATT&CK `T1059.001` PowerShell.
 
 The encoded command itself demonstrates command-line obfuscation in the test activity. The default Wazuh event observed during this scenario was mapped to PowerShell execution rather than a separate T1027 alert, so the repository intentionally distinguishes **observed obfuscation behavior** from **the ATT&CK technique assigned by the Wazuh rule**.
 
@@ -259,7 +259,7 @@ The Sysmon event provided process-level context for the execution, allowing the 
 
 ![Wazuh Rule 92057 MITRE mapping](images/scenario3/s3_06_wazuh_rule_92057_mitre_mapping.png)
 
-Wazuh Rule ID `92057`, Level `3`, described the event as a PowerShell process and mapped it to MITRE ATT&CK `T1059.001` under the Execution tactic.
+Wazuh Rule ID `92057`, Level `12`, described the event as a PowerShell process and mapped it to MITRE ATT&CK `T1059.001` under the Execution tactic.
 
 This mapping is represented exactly as observed. Although the scenario deliberately used Base64 encoding and therefore demonstrated an obfuscation pattern in the command line, the captured Wazuh rule was a PowerShell execution detection rather than an explicit T1027 detection.
 
@@ -337,7 +337,7 @@ Second, successful detection is only part of a production-like workflow. A rule 
 | Simulation | Benign Base64 PowerShell command executed using `-EncodedCommand` |
 | Hunting | Encoded PowerShell activity located in Wazuh Discover |
 | Reconstruction | Full encoded command line reviewed in the event details |
-| Detection | Wazuh Rule 92057, Level 3, mapped the process to T1059.001 PowerShell |
+| Detection | Wazuh Rule 92057, Level 12, mapped the process to T1059.001 PowerShell |
 | Validation | Sysmon process-creation detail confirmed the endpoint execution context |
 | Integration check | Wazuh Shuffle integration and `wazuh-integratord` verified |
 | Retest | Fresh encoded PowerShell event generated |
@@ -363,8 +363,8 @@ Scenario 3 joined threat hunting, detection engineering, and SOC operations into
 | Technique ID | Technique | Primary Scenario | Evidence Type |
 |---|---|---|---|
 | T1003.001 | OS Credential Dumping: LSASS Memory | Scenario 1 | Attempted Mimikatz credential access |
-| T1546.011 | Application Shimming | Scenario 1 | Wazuh Rule 92058 + `sdbinst.exe` telemetry |
-| T1105 | Ingress Tool Transfer | Scenario 1 | Wazuh Rule 92205 + PowerShell file-write telemetry |
+| T1546.011 | Application Shimming | Persistence, Privilege Escalation | Wazuh Rule 92058 + `sdbinst.exe` telemetry |
+| T1105 | Ingress Tool Transfer | Command and Control | Wazuh Rule 92205 + PowerShell file-write telemetry |
 | T1053.005 | Scheduled Task/Job: Scheduled Task | Scenario 2 | Atomic Red Team + Sysmon `schtasks.exe` telemetry |
 | T1059.003 | Windows Command Shell | Scenario 2 | Wazuh Rule 92052 |
 | T1059.001 | PowerShell | Scenario 3 | Wazuh Rule 92057 + Sysmon process telemetry |
