@@ -42,7 +42,7 @@ A self-built Security Operations Center environment generating live, real-time t
 | Alert delivery | Slack |
 | Adversary emulation | Mimikatz, Atomic Red Team, controlled PowerShell testing |
 | Virtualization | VirtualBox |
-| Endpoints | Ubuntu, Windows 11 Enterprise LTSC, Kali Linux |
+| Endpoints | Ubuntu, Windows 11 Enterprise LTSC
 
 ---
 
