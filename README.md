@@ -30,8 +30,7 @@ subgraph ENDPOINT["Windows Endpoint"]
 end
 
 subgraph SIEM["Detection / SIEM"]
-    C1[Ubuntu Wazuh Manager<br/>192.168.10.10]
-    C2[Wazuh SIEM]
+    C1[Ubuntu 192.168.10.10<br/>Wazuh Manager / SIEM]
 end
 
 subgraph SOAR["Automation / Enrichment"]
@@ -50,8 +49,7 @@ A3 --> B1
 B1 --> B2
 B2 --> B3
 B3 --> C1
-C1 --> C2
-C2 --> D1
+C1 --> D1
 
 D1 --> D2
 D1 --> E1
