@@ -14,17 +14,47 @@ A self built Security Operations Center environment generating live, real time t
 
 ## Architecture
 
-```text
-[ Adversary Emulation ]             [ Windows 11 Victim ]              [ Ubuntu, Wazuh Manager ]
-  Mimikatz / Atomic Red Team   ---> Sysmon + Wazuh Agent        ---> Wazuh SIEM
-  Encoded PowerShell                 192.168.10.21                     192.168.10.10
-                                                                                |
-                                                                                v
-                                                                        [ Shuffle SOAR ]
-                                                                     VirusTotal enrichment
-                                                                                |
-                                                                                v
-                                                                        [ Slack SOC Alert ]
+```mermaid
+flowchart LR
+
+subgraph ADV["Adversary Emulation"]
+    A1[Atomic Red Team]
+    A2[Mimikatz]
+    A3[Encoded PowerShell]
+end
+
+subgraph ENDPOINT["Windows Endpoint"]
+    B1[Windows 11 Victim<br/>192.168.10.21]
+    B2[Sysmon]
+    B3[Wazuh Agent]
+end
+
+subgraph SIEM["Detection / SIEM"]
+    C1[Ubuntu Wazuh Manager<br/>192.168.10.10]
+    C2[Wazuh SIEM]
+end
+
+subgraph SOAR["Automation / Enrichment"]
+    D1[Shuffle SOAR]
+    D2[VirusTotal API]
+end
+
+subgraph OUTPUT["Analyst Output"]
+    E1[Slack SOC Alert]
+end
+
+A1 --> B1
+A2 --> B1
+A3 --> B1
+
+B1 --> B2
+B2 --> B3
+B3 --> C1
+C1 --> C2
+C2 --> D1
+
+D1 --> D2
+D1 --> E1
 ```
 
 **Network design:** the lab uses a VirtualBox dual-adapter setup. One adapter provides NAT internet access, while a dedicated Internal Network (`SOC-lab`) carries VM-to-VM SIEM traffic.
